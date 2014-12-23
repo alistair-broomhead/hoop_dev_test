@@ -45,7 +45,13 @@ class EntryViewSet(viewsets.ModelViewSet):
 
     I have implemented sorting using the query string 'order_by' which I've
     tested using location and category. As a bonus I've added a query string
-    for each to allow filtering by location or query.
+    for each to allow filtering by location or category.
+
+    i.e.
+
+     /rest/event/?order_by=location&category=sports
+     /rest/event/?order_by=category&location=London
+     /rest/event/?location=London&category=arts%20and%20craft
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
