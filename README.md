@@ -62,3 +62,8 @@ This assumes that you have already installed and configured postgres - this proj
     python manage.py runserver      # Start a development server
 
 You should now be able to open your browser to http://localhost:8000/rest/ and browse the API. You will find the database pre-populated with the example data and by logging in using the auth you specified at the syncdb step you can add events in the http://localhost:8000/rest/event/ endpoint using the HTTP POST method. I chose to use API methods over a CMS as it would allow for programmatic/bulk input, and allows for a CMS to be added on top later, however I have restricted this to require authentication to perform anything other than read operations.
+
+Even quicker start
+------------------
+
+Open your browser to http://hoop-eng-test-al.herokuapp.com/rest
