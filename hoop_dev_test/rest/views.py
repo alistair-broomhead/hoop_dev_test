@@ -42,6 +42,10 @@ class EntryViewSet(viewsets.ModelViewSet):
     the list display, to only show the id, name and category. I have disobeyed
     this slightly by including the url to an event to make browsing the API
     easier.
+
+    I have implemented sorting using the query string 'order_by' which I've
+    tested using location and category. As a bonus I've added a query string
+    for each to allow filtering by location or query.
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
