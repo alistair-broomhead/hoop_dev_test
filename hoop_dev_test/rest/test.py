@@ -19,6 +19,9 @@ from hoop_dev_test.test_data import TestData
 
 
 def assert_status(code):
+    """
+    A simple decorator for any test that returns a response object
+    """
     def decorator(fn):
         @wraps(fn)
         def _inner(*args, **kwargs):
@@ -79,10 +82,11 @@ class APIBase(object):
         return self.client.post('/rest/event/', self.data.next.to_dict)
 
     def test_get_event(self):
-        event = self.client.get('/rest/event/{0}/'.format(self.event.pk)).data
-        assert_equal(event['name'], self.event.name)
-        assert_equal(event['category'], self.event.category.name)
-        assert_equal(event['location'], self.event.location.name)
+        event = self.client.get('/rest/event/{0}/'.format(self.event.pk))
+        assert_equal(event.data['name'], self.event.name)
+        assert_equal(event.data['category'], self.event.category.name)
+        assert_equal(event.data['location'], self.event.location.name)
+        return event
 
     def test_put_event(self):
         return self.client.put('/rest/event/{0}/'.format(self.event.pk),
@@ -152,6 +156,26 @@ class AnonymousAPITest(APIBase, TestCase):
     def setUpClass(cls):
         cls._setUpClass()
 
+    @assert_status(HTTP_200_OK)
+    def test_get_location_list(self):
+        return super(AnonymousAPITest, self).test_get_location_list()
+
+    @assert_status(HTTP_200_OK)
+    def test_get_category_list(self):
+        return super(AnonymousAPITest, self).test_get_category_list()
+
+    @assert_status(HTTP_200_OK)
+    def test_get_event_list(self):
+        return super(AnonymousAPITest, self).test_get_event_list()
+
+    @assert_status(HTTP_200_OK)
+    def test_get_category(self):
+        return super(AnonymousAPITest, self).test_get_category()
+
+    @assert_status(HTTP_200_OK)
+    def test_get_location(self):
+        return super(AnonymousAPITest, self).test_get_location()
+
     @assert_status(HTTP_403_FORBIDDEN)
     def test_post_event(self):
         return super(AnonymousAPITest, self).test_post_event()
@@ -204,6 +228,26 @@ class AuthenticatedAPITest(APIBase, TestCase):
 
     def setUp(self):
         self.client.login(username=self.username, password=self.password)
+
+    @assert_status(HTTP_200_OK)
+    def test_get_location_list(self):
+        return super(AuthenticatedAPITest, self).test_get_location_list()
+
+    @assert_status(HTTP_200_OK)
+    def test_get_category_list(self):
+        return super(AuthenticatedAPITest, self).test_get_category_list()
+
+    @assert_status(HTTP_200_OK)
+    def test_get_event_list(self):
+        return super(AuthenticatedAPITest, self).test_get_event_list()
+
+    @assert_status(HTTP_200_OK)
+    def test_get_category(self):
+        return super(AuthenticatedAPITest, self).test_get_category()
+
+    @assert_status(HTTP_200_OK)
+    def test_get_location(self):
+        return super(AuthenticatedAPITest, self).test_get_location()
 
     @assert_status(HTTP_201_CREATED)
     def test_post_event(self):

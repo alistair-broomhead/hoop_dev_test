@@ -27,7 +27,10 @@ def ensure_data():
 
 @api_view(('GET',))
 def api_root(request, format_=None):
-    """ Just a simple view of the root of our API """
+    """
+    This is the root of our API, the main part of this lies under `event`, but
+    `location` and `category` are provided for convenience.
+    """
     ensure_data()
     return Response({
         'events': reverse('event-list', request=request, format=format_),
@@ -43,9 +46,9 @@ class EntryViewSet(viewsets.ModelViewSet):
     this slightly by including the url to an event to make browsing the API
     easier.
 
-    I have implemented sorting using the query string 'order_by' which I've
-    tested using location and category. As a bonus I've added a query string
-    for each to allow filtering by location or category.
+    For the list part I have implemented sorting using the query string
+    'order_by' which I've tested using location and category. As a bonus I've
+    added a query string for each to allow filtering by location or category.
 
     i.e.
 
