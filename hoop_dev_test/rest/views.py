@@ -52,11 +52,11 @@ class EntryViewSet(viewsets.ModelViewSet):
 
     i.e.
 
-    <a href="/rest/event/?order_by=location&category=sports">?order_by=location&category=sports</a>
+    [?order_by=location&category=sports](/rest/event/?order_by=location&category=sports)
 
-    <a href="/rest/event/?order_by=category&location=London">?order_by=category&location=London</a>
+    [?order_by=category&location=London](/rest/event/?order_by=category&location=London)
 
-    <a href="/rest/event/?location=London&category=arts%20and%20craft">?location=London&category=arts%20and%20craft</a>
+    [?location=London&category=arts%20and%20craft](/rest/event/?location=London&category=arts%20and%20craft)
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
